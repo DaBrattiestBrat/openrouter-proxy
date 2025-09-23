@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 OPENROUTER_KEY = os.environ.get("OPENROUTER_KEY")
 
-@app.route("/api/openrouter", methods=["POST"])
+@app.route("/v1/chat/completions", methods=["POST"])
 def proxy():
     r = requests.post(
         "https://openrouter.ai/api/v1/chat/completions",
