@@ -1,7 +1,9 @@
 from flask import Flask, request
+from flask_cors import CORS
 import requests, os
 
 app = Flask(__name__)
+CORS(app)  # 👈 enable CORS for all routes
 
 OPENROUTER_KEY = os.environ.get("OPENROUTER_KEY")
 
@@ -15,7 +17,10 @@ def proxy():
         },
         json=request.json
     )
-    return (r.text, r.status_code, {"Content-Type": "application/json"})
+    return (r.text, r.status_code, {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+    })
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
